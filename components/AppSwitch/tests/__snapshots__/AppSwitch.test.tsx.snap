@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppSwitch /> should render component SettingsScreen 1`] = `
+<RCTSwitch
+  accessibilityRole="switch"
+  onChange={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  onTintColor="#006ae6"
+  style={
+    {
+      "alignSelf": "flex-start",
+    }
+  }
+  testID="AppSwitch"
+  thumbTintColor="#fff"
+  tintColor="#e3e3e3"
+  value={false}
+/>
+`;

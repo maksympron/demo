@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HomeScreen /> should render component HomeScreen 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+  testID="homePage"
+>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+          "fontFamily": "UbuntuRegular",
+          "fontSize": 16,
+        },
+        undefined,
+      ]
+    }
+  >
+    Home page
+  </Text>
+</View>
+`;

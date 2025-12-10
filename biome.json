@@ -1,0 +1,93 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
+  "files": {
+    "includes": [
+      "**",
+      "!.expo",
+      "!scripts",
+      "!node_modules",
+      "!.idea",
+      "!dist",
+      "!app/+html.tsx",
+      "!GEMINI.md"
+    ],
+    "ignoreUnknown": false
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "formatter": {
+    "enabled": true,
+    "lineWidth": 100,
+    "indentStyle": "space",
+    "attributePosition": "multiline"
+  },
+
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "correctness": {
+        "useImportExtensions": "off",
+        "noNodejsModules": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "error",
+        "noConsole": "warn",
+        "noEmptyBlockStatements": "off",
+        "noReactSpecificProps": "off"
+      },
+      "style": {
+        "useConst": "error",
+        "useTemplate": "error",
+        "useNamingConvention": "off",
+        "useFilenamingConvention": "off",
+        "noDefaultExport": "off",
+        "noNamespace": "off",
+        "useExplicitLengthCheck": "off",
+        "noImplicitBoolean": "off",
+        "useNodejsImportProtocol": "off"
+      },
+      "a11y": {
+        "useAltText": "error"
+      },
+      "performance": {
+        "useTopLevelRegex": "off"
+      },
+      "complexity": {
+        "noExtraBooleanCast": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "bracketSameLine": false,
+      "attributePosition": "multiline"
+    },
+    "globals": [
+      "jest",
+      "test",
+      "describe",
+      "it",
+      "expect",
+      "beforeEach",
+      "afterEach"
+    ]
+  },
+  "json": {
+    "formatter": {
+      "lineWidth": 50
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}

@@ -1,0 +1,235 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SettingsScreen /> should render component SettingsScreen 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "gap": 24,
+      "padding": 12,
+    }
+  }
+  testID="SettingPage"
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "flexDirection": "row",
+        "gap": 12,
+      }
+    }
+  >
+    <RCTSwitch
+      accessibilityRole="switch"
+      onChange={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onTintColor="#006ae6"
+      style={
+        {
+          "alignSelf": "flex-start",
+        }
+      }
+      testID="AppSwitch"
+      thumbTintColor="#fff"
+      tintColor="#e3e3e3"
+      value={false}
+    />
+    <Text
+      style={
+        [
+          {
+            "color": "#11181C",
+            "fontFamily": "UbuntuRegular",
+            "fontSize": 16,
+          },
+          undefined,
+        ]
+      }
+    >
+      Dark mode
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerStyle={
+      {
+        "gap": 24,
+      }
+    }
+    data={
+      [
+        {
+          "id": 1,
+          "title": "English",
+          "value": "en",
+        },
+        {
+          "id": 2,
+          "title": "Українська",
+          "value": "ua",
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={0.0001}
+    stickyHeaderIndices={[]}
+    viewabilityConfigCallbackPairs={[]}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "flexDirection": "row",
+              "gap": 24,
+              "opacity": 1,
+            }
+          }
+          testID="language-selector-en"
+        >
+          <View
+            style={
+              {
+                "backgroundColor": "#40BF80",
+                "borderColor": "#e3e3e3",
+                "borderRadius": 10,
+                "borderWidth": 3,
+                "height": 20,
+                "width": 20,
+              }
+            }
+          />
+          <Text
+            style={
+              [
+                {
+                  "color": "#11181C",
+                  "fontFamily": "UbuntuRegular",
+                  "fontSize": 16,
+                },
+                undefined,
+              ]
+            }
+          >
+            English
+          </Text>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "flexDirection": "row",
+              "gap": 24,
+              "opacity": 1,
+            }
+          }
+          testID="language-selector-ua"
+        >
+          <View
+            style={
+              {
+                "borderColor": "#e3e3e3",
+                "borderRadius": 10,
+                "borderWidth": 3,
+                "height": 20,
+                "width": 20,
+              }
+            }
+          />
+          <Text
+            style={
+              [
+                {
+                  "color": "#11181C",
+                  "fontFamily": "UbuntuRegular",
+                  "fontSize": 16,
+                },
+                undefined,
+              ]
+            }
+          >
+            Українська
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
