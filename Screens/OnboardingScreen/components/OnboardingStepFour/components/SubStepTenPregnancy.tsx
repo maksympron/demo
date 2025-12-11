@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, View } from 'react-native';
 import AppText from '@/components/AppText/AppText';
 import { useAppSelector } from '@/store/hooks/useApp';
 import selectCurrentTheme from '@/store/slices/theme/selectors';
 import getStyles from '../../../styles';
 import type { IOnboardingStepFourSubStepProps } from '../interfaces/IOnboardingStepFourSubStepProps';
+import getSubStepStyles from './styles';
 
 export default function SubStepTenPregnancy({
   handleGoToNextSubStep,
 }: IOnboardingStepFourSubStepProps) {
+  const { t } = useTranslation();
   const theme = useAppSelector(selectCurrentTheme);
   const onboardingScreenStyles = getStyles({ theme });
+  const subStepStyles = getSubStepStyles({ theme });
 
   const pregnancyOptions = [
-    { id: '1', label: 'Pregnant' },
-    { id: '2', label: 'Postpartum' },
-    { id: '3', label: 'Neither' },
+    { id: '1', label: t('onboarding.pregnancyOptions.pregnant') },
+    { id: '2', label: t('onboarding.pregnancyOptions.postpartum') },
+    { id: '3', label: t('onboarding.pregnancyOptions.neither') },
   ];
 
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
@@ -25,24 +29,11 @@ export default function SubStepTenPregnancy({
 
     return (
       <Pressable
-        style={{
-          alignSelf: 'stretch',
-          borderWidth: 1,
-          borderColor: isSelected ? '#de6e53' : 'gray',
-          backgroundColor: isSelected ? '#fff3f0' : 'white',
-          paddingVertical: 16,
-          paddingHorizontal: 20,
-          marginBottom: 10,
-          alignItems: 'center',
-        }}
+        style={[subStepStyles.listItem, isSelected && subStepStyles.selectedListItem]}
         onPress={() => setSelectedOptionId(item.id)}
       >
         <AppText
-          style={{
-            fontWeight: 'bold',
-            textAlign: 'center',
-            color: isSelected ? '#de6e53' : 'black',
-          }}
+          style={[subStepStyles.listItemText, isSelected && subStepStyles.selectedListItemText]}
         >
           {item.label}
         </AppText>
@@ -52,15 +43,13 @@ export default function SubStepTenPregnancy({
 
   return (
     <>
-      <View style={[onboardingScreenStyles.centerBlock, { alignItems: 'stretch' }]}>
-        <AppText style={onboardingScreenStyles.title}>
-          Are you currently pregnant or in the postpartum period?
-        </AppText>
+      <View style={[onboardingScreenStyles.centerBlock, onboardingScreenStyles.stretch]}>
+        <AppText style={onboardingScreenStyles.title}>{t('onboarding.pregnancyTitle')}</AppText>
         <FlatList
           data={pregnancyOptions}
           renderItem={renderPregnancyOption}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ marginTop: 20 }}
+          contentContainerStyle={subStepStyles.listContentContainer}
         />
       </View>
 
@@ -69,7 +58,9 @@ export default function SubStepTenPregnancy({
         onPress={handleGoToNextSubStep}
         disabled={!selectedOptionId}
       >
-        <AppText style={onboardingScreenStyles.continueButtonText}>Continue</AppText>
+        <AppText style={onboardingScreenStyles.continueButtonText}>
+          {t('onboarding.continue')}
+        </AppText>
       </Pressable>
     </>
   );

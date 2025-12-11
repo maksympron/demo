@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, View } from 'react-native';
 import AppText from '@/components/AppText/AppText';
 import { useAppSelector } from '@/store/hooks/useApp';
 import selectCurrentTheme from '@/store/slices/theme/selectors';
 import getStyles from '../../../styles';
 import type { IOnboardingStepFourSubStepProps } from '../interfaces/IOnboardingStepFourSubStepProps';
+import getSubStepStyles from './styles';
 
 export default function SubStepSevenWorkHours({
   handleGoToNextSubStep,
 }: IOnboardingStepFourSubStepProps) {
+  const { t } = useTranslation();
   const theme = useAppSelector(selectCurrentTheme);
   const onboardingScreenStyles = getStyles({ theme });
+  const subStepStyles = getSubStepStyles({ theme });
 
   const workHoursOptions = [
-    { id: '1', label: '10-20 hr/wk' },
-    { id: '2', label: '25-35 hr/wk' },
-    { id: '3', label: '40-50 hr/wk' },
-    { id: '4', label: '60-80 hr/wk' },
+    { id: '1', label: t('onboarding.workHours.low') },
+    { id: '2', label: t('onboarding.workHours.medium') },
+    { id: '3', label: t('onboarding.workHours.high') },
+    { id: '4', label: t('onboarding.workHours.veryHigh') },
   ];
 
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
@@ -26,24 +30,11 @@ export default function SubStepSevenWorkHours({
 
     return (
       <Pressable
-        style={{
-          alignSelf: 'stretch',
-          borderWidth: 1,
-          borderColor: isSelected ? '#de6e53' : 'gray',
-          backgroundColor: isSelected ? '#fff3f0' : 'white',
-          paddingVertical: 16,
-          paddingHorizontal: 20,
-          marginBottom: 10,
-          alignItems: 'center',
-        }}
+        style={[subStepStyles.listItem, isSelected && subStepStyles.selectedListItem]}
         onPress={() => setSelectedOptionId(item.id)}
       >
         <AppText
-          style={{
-            fontWeight: 'bold',
-            textAlign: 'center',
-            color: isSelected ? '#de6e53' : 'black',
-          }}
+          style={[subStepStyles.listItemText, isSelected && subStepStyles.selectedListItemText]}
         >
           {item.label}
         </AppText>
@@ -53,13 +44,13 @@ export default function SubStepSevenWorkHours({
 
   return (
     <>
-      <View style={[onboardingScreenStyles.centerBlock, { alignItems: 'stretch' }]}>
-        <AppText style={onboardingScreenStyles.title}>What are your work hours?</AppText>
+      <View style={[onboardingScreenStyles.centerBlock, onboardingScreenStyles.stretch]}>
+        <AppText style={onboardingScreenStyles.title}>{t('onboarding.workHoursTitle')}</AppText>
         <FlatList
           data={workHoursOptions}
           renderItem={renderWorkHoursOption}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ marginTop: 20 }}
+          contentContainerStyle={subStepStyles.listContentContainer}
         />
       </View>
 
@@ -68,7 +59,9 @@ export default function SubStepSevenWorkHours({
         onPress={handleGoToNextSubStep}
         disabled={!selectedOptionId}
       >
-        <AppText style={onboardingScreenStyles.continueButtonText}>Continue</AppText>
+        <AppText style={onboardingScreenStyles.continueButtonText}>
+          {t('onboarding.continue')}
+        </AppText>
       </Pressable>
     </>
   );

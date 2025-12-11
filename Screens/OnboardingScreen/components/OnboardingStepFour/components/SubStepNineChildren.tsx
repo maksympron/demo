@@ -1,22 +1,26 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, View } from 'react-native';
 import AppText from '@/components/AppText/AppText';
 import { useAppSelector } from '@/store/hooks/useApp';
 import selectCurrentTheme from '@/store/slices/theme/selectors';
 import getStyles from '../../../styles';
 import type { IOnboardingStepFourSubStepProps } from '../interfaces/IOnboardingStepFourSubStepProps';
+import getSubStepStyles from './styles';
 
 export default function SubStepNineChildren({
   handleGoToNextSubStep,
 }: IOnboardingStepFourSubStepProps) {
+  const { t } = useTranslation();
   const theme = useAppSelector(selectCurrentTheme);
   const onboardingScreenStyles = getStyles({ theme });
+  const subStepStyles = getSubStepStyles({ theme });
 
   const childrenOptions = [
-    { id: '0', label: '0' },
-    { id: '1', label: '1' },
-    { id: '2', label: '2' },
-    { id: '3', label: '3+' },
+    { id: '0', label: t('onboarding.childrenOptions.0') },
+    { id: '1', label: t('onboarding.childrenOptions.1') },
+    { id: '2', label: t('onboarding.childrenOptions.2') },
+    { id: '3', label: t('onboarding.childrenOptions.3+') },
   ];
 
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
@@ -26,24 +30,11 @@ export default function SubStepNineChildren({
 
     return (
       <Pressable
-        style={{
-          alignSelf: 'stretch',
-          borderWidth: 1,
-          borderColor: isSelected ? '#de6e53' : 'gray',
-          backgroundColor: isSelected ? '#fff3f0' : 'white',
-          paddingVertical: 16,
-          paddingHorizontal: 20,
-          marginBottom: 10,
-          alignItems: 'center',
-        }}
+        style={[subStepStyles.listItem, isSelected && subStepStyles.selectedListItem]}
         onPress={() => setSelectedOptionId(item.id)}
       >
         <AppText
-          style={{
-            fontWeight: 'bold',
-            textAlign: 'center',
-            color: isSelected ? '#de6e53' : 'black',
-          }}
+          style={[subStepStyles.listItemText, isSelected && subStepStyles.selectedListItemText]}
         >
           {item.label}
         </AppText>
@@ -53,13 +44,13 @@ export default function SubStepNineChildren({
 
   return (
     <>
-      <View style={[onboardingScreenStyles.centerBlock, { alignItems: 'stretch' }]}>
-        <AppText style={onboardingScreenStyles.title}>Do you have children?</AppText>
+      <View style={[onboardingScreenStyles.centerBlock, onboardingScreenStyles.stretch]}>
+        <AppText style={onboardingScreenStyles.title}>{t('onboarding.childrenTitle')}</AppText>
         <FlatList
           data={childrenOptions}
           renderItem={renderChildOption}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ marginTop: 20 }}
+          contentContainerStyle={subStepStyles.listContentContainer}
         />
       </View>
 
@@ -68,7 +59,9 @@ export default function SubStepNineChildren({
         onPress={handleGoToNextSubStep}
         disabled={!selectedOptionId}
       >
-        <AppText style={onboardingScreenStyles.continueButtonText}>Continue</AppText>
+        <AppText style={onboardingScreenStyles.continueButtonText}>
+          {t('onboarding.continue')}
+        </AppText>
       </Pressable>
     </>
   );

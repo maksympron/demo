@@ -1,24 +1,48 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, View } from 'react-native';
 import AppText from '@/components/AppText/AppText';
 import { useAppSelector } from '@/store/hooks/useApp';
 import selectCurrentTheme from '@/store/slices/theme/selectors';
 import getStyles from '../../../styles';
 import type { IOnboardingStepFourSubStepProps } from '../interfaces/IOnboardingStepFourSubStepProps';
+import getSubStepStyles from './styles';
 
 export default function SubStepSixJobType({
   handleGoToNextSubStep,
 }: IOnboardingStepFourSubStepProps) {
+  const { t } = useTranslation();
   const theme = useAppSelector(selectCurrentTheme);
   const onboardingScreenStyles = getStyles({ theme });
+  const subStepStyles = getSubStepStyles({ theme });
 
   const jobTypes = [
-    { id: '1', main: 'Desk job / sedentary', secondary: 'mostly sitting' },
-    { id: '2', main: 'Active job', secondary: 'on your feet or moving most of the day' },
-    { id: '3', main: 'Mixed', secondary: 'a combination of desk and physical work' },
-    { id: '4', main: 'Shift work', secondary: 'irregular hours' },
-    { id: '5', main: 'Manual Labor', secondary: 'heavy physical work' },
-    { id: '6', main: 'Other', secondary: '' },
+    {
+      id: '1',
+      main: t('onboarding.jobTypes.desk'),
+      secondary: t('onboarding.jobTypes.deskSecondary'),
+    },
+    {
+      id: '2',
+      main: t('onboarding.jobTypes.active'),
+      secondary: t('onboarding.jobTypes.activeSecondary'),
+    },
+    {
+      id: '3',
+      main: t('onboarding.jobTypes.mixed'),
+      secondary: t('onboarding.jobTypes.mixedSecondary'),
+    },
+    {
+      id: '4',
+      main: t('onboarding.jobTypes.shift'),
+      secondary: t('onboarding.jobTypes.shiftSecondary'),
+    },
+    {
+      id: '5',
+      main: t('onboarding.jobTypes.manual'),
+      secondary: t('onboarding.jobTypes.manualSecondary'),
+    },
+    { id: '6', main: t('onboarding.jobTypes.other'), secondary: '' },
   ];
 
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
@@ -28,34 +52,20 @@ export default function SubStepSixJobType({
 
     return (
       <Pressable
-        style={{
-          alignSelf: 'stretch', // ensures full width
-          borderWidth: 1,
-          borderColor: isSelected ? '#de6e53' : 'gray',
-          backgroundColor: isSelected ? '#fff3f0' : 'white',
-          paddingVertical: 16,
-          paddingHorizontal: 20,
-          marginBottom: 10,
-          gap: 4,
-        }}
+        style={[subStepStyles.listItem, isSelected && subStepStyles.selectedListItem]}
         onPress={() => setSelectedJobId(item.id)}
       >
         <AppText
-          style={{
-            fontWeight: 'bold',
-            textAlign: 'center',
-            color: isSelected ? '#de6e53' : 'black',
-          }}
+          style={[subStepStyles.listItemText, isSelected && subStepStyles.selectedListItemText]}
         >
           {item.main}
         </AppText>
         {item.secondary ? (
           <AppText
-            style={{
-              fontSize: 12,
-              color: isSelected ? '#de6e53' : 'gray',
-              textAlign: 'center',
-            }}
+            style={[
+              subStepStyles.listItemSecondaryText,
+              isSelected && subStepStyles.selectedListItemSecondaryText,
+            ]}
           >
             {item.secondary}
           </AppText>
@@ -66,13 +76,13 @@ export default function SubStepSixJobType({
 
   return (
     <>
-      <View style={[onboardingScreenStyles.centerBlock, { alignItems: 'stretch' }]}>
-        <AppText style={onboardingScreenStyles.title}>What kind of job do you have?</AppText>
+      <View style={[onboardingScreenStyles.centerBlock, onboardingScreenStyles.stretch]}>
+        <AppText style={onboardingScreenStyles.title}>{t('onboarding.jobTypeTitle')}</AppText>
         <FlatList
           data={jobTypes}
           renderItem={renderJobType}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ marginTop: 20 }}
+          contentContainerStyle={subStepStyles.listContentContainer}
         />
       </View>
       <Pressable
@@ -83,7 +93,9 @@ export default function SubStepSixJobType({
         onPress={handleGoToNextSubStep}
         disabled={!selectedJobId}
       >
-        <AppText style={onboardingScreenStyles.continueButtonText}>Continue</AppText>
+        <AppText style={onboardingScreenStyles.continueButtonText}>
+          {t('onboarding.continue')}
+        </AppText>
       </Pressable>
     </>
   );

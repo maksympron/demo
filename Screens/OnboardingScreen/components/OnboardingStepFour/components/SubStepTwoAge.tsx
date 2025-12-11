@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Keyboard, Pressable, View } from 'react-native';
 import AppText from '@/components/AppText/AppText';
 import TextInput from '@/components/TextInput/TextInput';
@@ -5,31 +6,27 @@ import { useAppSelector } from '@/store/hooks/useApp';
 import selectCurrentTheme from '@/store/slices/theme/selectors';
 import getStyles from '../../../styles';
 import type { IOnboardingStepFourSubStepProps } from '../interfaces/IOnboardingStepFourSubStepProps';
+import getSubStepStyles from './styles';
 
 export default function SubStepTwoAge({ handleGoToNextSubStep }: IOnboardingStepFourSubStepProps) {
+  const { t } = useTranslation();
   const theme = useAppSelector(selectCurrentTheme);
   const onboardingScreenStyles = getStyles({ theme });
+  const subStepStyles = getSubStepStyles({ theme });
 
   return (
     <Pressable
-      style={{ flex: 1 }}
+      style={subStepStyles.container}
       onPress={Keyboard.dismiss}
     >
-      <View style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
-        <View style={{ height: 52 }}></View>
+      <View style={subStepStyles.content}>
+        <View style={subStepStyles.emptySpace}></View>
         <View style={onboardingScreenStyles.centerBlock}>
-          <AppText style={onboardingScreenStyles.title}>What is your age?</AppText>
+          <AppText style={onboardingScreenStyles.title}>{t('onboarding.ageTitle')}</AppText>
           <TextInput
-            placeholder="Enter age"
+            placeholder={t('onboarding.agePlaceholder')}
             keyboardType="numeric"
-            style={{
-              width: '100%',
-              borderBottomWidth: 2,
-              fontSize: 24,
-              paddingVertical: 12,
-              textAlign: 'center',
-              fontFamily: 'AlbertRegular',
-            }}
+            style={subStepStyles.input}
           />
         </View>
 
@@ -37,7 +34,9 @@ export default function SubStepTwoAge({ handleGoToNextSubStep }: IOnboardingStep
           style={[onboardingScreenStyles.continueButton]}
           onPress={handleGoToNextSubStep}
         >
-          <AppText style={[onboardingScreenStyles.continueButtonText]}>Continue</AppText>
+          <AppText style={[onboardingScreenStyles.continueButtonText]}>
+            {t('onboarding.continue')}
+          </AppText>
         </Pressable>
       </View>
     </Pressable>

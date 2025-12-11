@@ -1,52 +1,60 @@
-import React, { useState } from 'react';
-import { Pressable, TextInput, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Keyboard, Pressable, View } from 'react-native';
 import AppText from '@/components/AppText/AppText';
 import { SegmentedSelector } from '@/components/SegmentedSelector';
-import { useAppSelector } from '@/store/hooks/useApp'; // Import useAppSelector
-import selectCurrentTheme from '@/store/slices/theme/selectors'; // Import selectCurrentTheme
-import getStyles from '../../../styles'; // Corrected import to getStyles
+import TextInput from '@/components/TextInput/TextInput';
+import { useAppSelector } from '@/store/hooks/useApp';
+import selectCurrentTheme from '@/store/slices/theme/selectors';
+import getStyles from '../../../styles';
 import type { IOnboardingStepFourSubStepProps } from '../interfaces/IOnboardingStepFourSubStepProps';
+import getSubStepStyles from './styles';
 
 export default function SubStepFourWeight({
   handleGoToNextSubStep,
 }: IOnboardingStepFourSubStepProps) {
-  const theme = useAppSelector(selectCurrentTheme); // Get theme
-  const onboardingScreenStyles = getStyles({ theme }); // Call getStyles with theme
+  const { t } = useTranslation();
+  const theme = useAppSelector(selectCurrentTheme);
+  const onboardingScreenStyles = getStyles({ theme });
+  const subStepStyles = getSubStepStyles({ theme });
   const [activeTab, setActiveTab] = useState<'kg' | 'lb'>('kg'); // State for selected unit
   return (
-    <>
-      <View style={onboardingScreenStyles.centerBlock}>
-        <AppText style={onboardingScreenStyles.title}>How much do you weigh?</AppText>
-        <View style={{ alignItems: 'center', gap: 20, width: '100%' }}>
-          <SegmentedSelector
-            variant="switch"
-            options={[
-              { id: 'kg', label: 'kg' },
-              { id: 'lb', label: 'lb' },
-            ]}
-            value={activeTab}
-            onChange={(val) => setActiveTab(val as 'kg' | 'lb')}
-            containerStyle={{ width: 130 }}
-          />
-          <TextInput
-            keyboardType="numeric"
-            style={{
-              width: '100%',
-              borderBottomWidth: 2,
-              paddingVertical: 12,
-              fontSize: 24,
-              textAlign: 'center',
-              fontFamily: 'AlbertRegular',
-            }}
-          />
+    <Pressable
+      style={subStepStyles.container}
+      onPress={Keyboard.dismiss}
+    >
+      <View style={subStepStyles.content}>
+        <View style={subStepStyles.emptySpace}></View>
+        <View style={onboardingScreenStyles.centerBlock}>
+          <AppText style={[onboardingScreenStyles.title, { maxWidth: 320 }]}>
+            {t('onboarding.weightTitle')}
+          </AppText>
+          <View style={subStepStyles.inputContainer}>
+            <SegmentedSelector
+              variant="switch"
+              options={[
+                { id: 'kg', label: t('onboarding.kg') },
+                { id: 'lb', label: t('onboarding.lb') },
+              ]}
+              value={activeTab}
+              onChange={(val) => setActiveTab(val as 'kg' | 'lb')}
+              containerStyle={subStepStyles.segmentedSelectorContainer}
+            />
+            <TextInput
+              keyboardType="numeric"
+              style={subStepStyles.input}
+            />
+          </View>
         </View>
+        <Pressable
+          style={[onboardingScreenStyles.continueButton]}
+          onPress={handleGoToNextSubStep}
+        >
+          <AppText style={[onboardingScreenStyles.continueButtonText]}>
+            {t('onboarding.continue')}
+          </AppText>
+        </Pressable>
       </View>
-      <Pressable
-        style={[onboardingScreenStyles.continueButton]}
-        onPress={handleGoToNextSubStep}
-      >
-        <AppText style={[onboardingScreenStyles.continueButtonText]}>Continue</AppText>
-      </Pressable>
-    </>
+    </Pressable>
   );
 }

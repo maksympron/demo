@@ -1,29 +1,23 @@
 import { useMemo } from 'react';
-
 import {
   getCompactSegmentedSelectorStyle,
   getSegmentedSelectorStyle,
   getSwitchSelectorStyle,
 } from './styles';
 
-import { useAppSelector } from '@/store/hooks/useApp';
-import selectCurrentTheme from '@/store/slices/theme/selectors';
-
 type StyleVariant = 'default' | 'compact' | 'switch';
 
 const useSegmentedSelectorStyles = (variant: StyleVariant = 'default') => {
-  const theme = useAppSelector(selectCurrentTheme);
-
   return useMemo(() => {
     switch (variant) {
       case 'compact':
-        return getCompactSegmentedSelectorStyle({ theme });
+        return getCompactSegmentedSelectorStyle();
       case 'switch':
-        return getSwitchSelectorStyle({ theme });
+        return getSwitchSelectorStyle();
       default:
-        return getSegmentedSelectorStyle({ theme });
+        return getSegmentedSelectorStyle();
     }
-  }, [theme, variant]);
+  }, [variant]);
 };
 
 export default useSegmentedSelectorStyles;

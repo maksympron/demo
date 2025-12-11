@@ -14,7 +14,7 @@ export default function OnboardingStepThree({ handleGoToNextStep }: IOnboardingS
 
   return (
     <>
-      <View style={{ height: 62 }}></View>
+      <View style={styles.emptySpace}></View>
 
       <View style={styles.centerBlock}>
         <AppText style={styles.title}>{t('onboarding.questionsMatterTitle')}</AppText>
@@ -24,7 +24,7 @@ export default function OnboardingStepThree({ handleGoToNextStep }: IOnboardingS
         style={[styles.continueButton]}
         onPress={handleGoToNextStep}
       >
-        <AppText style={[styles.continueButtonText]}>Continue</AppText>
+        <AppText style={[styles.continueButtonText]}>{t('onboarding.continue')}</AppText>
       </Pressable>
     </>
   );

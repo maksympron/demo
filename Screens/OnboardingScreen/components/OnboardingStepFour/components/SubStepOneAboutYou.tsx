@@ -6,22 +6,27 @@ import selectCurrentTheme from '@/store/slices/theme/selectors'; // Import selec
 import getStyles from '../../../styles'; // Corrected import to getStyles
 import type { IOnboardingStepFourSubStepProps } from '../interfaces/IOnboardingStepFourSubStepProps';
 
+import { useTranslation } from 'react-i18next';
+
 export default function SubStepOneAboutYou({
   handleGoToNextSubStep,
 }: IOnboardingStepFourSubStepProps) {
+  const { t } = useTranslation();
   const theme = useAppSelector(selectCurrentTheme); // Get theme
   const onboardingScreenStyles = getStyles({ theme }); // Call getStyles with theme
 
   return (
     <>
       <View style={onboardingScreenStyles.centerBlock}>
-        <AppText style={onboardingScreenStyles.title}>About You</AppText>
+        <AppText style={onboardingScreenStyles.title}>{t('onboarding.aboutYouTitle')}</AppText>
       </View>
       <Pressable
         style={[onboardingScreenStyles.continueButton]}
         onPress={handleGoToNextSubStep}
       >
-        <AppText style={[onboardingScreenStyles.continueButtonText]}>Continue</AppText>
+        <AppText style={[onboardingScreenStyles.continueButtonText]}>
+          {t('onboarding.continue')}
+        </AppText>
       </Pressable>
     </>
   );

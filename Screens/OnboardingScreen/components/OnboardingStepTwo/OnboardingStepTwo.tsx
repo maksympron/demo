@@ -14,7 +14,7 @@ export default function OnboardingStepTwo({ handleGoToNextStep }: IOnboardingSte
 
   return (
     <>
-      <View style={{ height: 62 }}></View>
+      <View style={styles.emptySpace}></View>
       <View style={styles.centerBlock}>
         <AppText style={styles.title}>{t('onboarding.privacyTitle')}</AppText>
         <AppText style={styles.subtitle}>{t('onboarding.privacySubtitle')}</AppText>
@@ -23,7 +23,7 @@ export default function OnboardingStepTwo({ handleGoToNextStep }: IOnboardingSte
         style={[styles.continueButton]}
         onPress={handleGoToNextStep}
       >
-        <AppText style={[styles.continueButtonText]}>Continue</AppText>
+        <AppText style={[styles.continueButtonText]}>{t('onboarding.continue')}</AppText>
       </Pressable>
     </>
   );
