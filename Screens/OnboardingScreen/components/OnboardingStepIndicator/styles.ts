@@ -8,16 +8,16 @@ const getStyles = ({ theme }: { theme?: ColorSchemeName }) =>
       flexDirection: 'row',
       justifyContent: 'center',
       gap: 8,
-      height: 8,
+      height: 6,
     },
     stepDot: {
-      width: 8,
-      height: 8,
+      flex: 1, // 👈 each dot takes equal width
+      height: 6,
       borderRadius: 4,
-      backgroundColor: Colors[theme ?? 'light'].text + '30', // Light grey
+      backgroundColor: Colors[theme ?? 'light'].text + '30',
     },
     stepDotActive: {
-      backgroundColor: '#fa9d65', // Orange
+      backgroundColor: '#fa9d65',
     },
   });
 

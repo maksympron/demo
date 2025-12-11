@@ -1,23 +1,28 @@
 import { StyleSheet } from 'react-native';
 
-const getStyles = () =>
+const getStyles = ({ theme }: { theme: any }) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      padding: 16,
+    },
+    wrapper: {
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: 16,
-      paddingVertical: 40,
-    },
+      width: '100%',
 
+      flex: 1,
+    },
     centerBlock: {
       alignItems: 'center',
       gap: 32,
+      width: '100%',
     },
     title: {
-      fontFamily: 'AlbertRegular',
-      fontSize: 28,
+      fontFamily: 'AlbertSemiBold',
+      fontSize: 32,
       textAlign: 'center',
+      width: '100%',
     },
     subtitle: {
       fontFamily: 'AlbertRegular',
@@ -34,7 +39,6 @@ const getStyles = () =>
       alignItems: 'center',
       width: '100%',
     },
-
     continueButtonText: {
       color: 'white',
       fontFamily: 'AlbertMedium',

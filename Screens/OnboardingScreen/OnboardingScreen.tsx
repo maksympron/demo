@@ -1,12 +1,13 @@
-import { Pressable, View } from 'react-native';
-import AppText from '@/components/AppText/AppText';
-import OnboardingStepFour from '@/Screens/OnboardingScreen/components/OnboardingStepFour';
-import OnboardingStepOne from '@/Screens/OnboardingScreen/components/OnboardingStepOne';
-import OnboardingStepThree from '@/Screens/OnboardingScreen/components/OnboardingStepThree';
-import OnboardingStepTwo from '@/Screens/OnboardingScreen/components/OnboardingStepTwo';
+import { View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import OnboardingStepIndicator from '@/Screens/OnboardingScreen/components/OnboardingStepIndicator/OnboardingStepIndicator';
 import type { IOnboardingScreenProps } from '@/Screens/OnboardingScreen/interfaces/IOnboardingScreenProps';
 import { useAppSelector } from '@/store/hooks/useApp';
 import selectCurrentTheme from '@/store/slices/theme/selectors';
+import OnboardingStepFour from './components/OnboardingStepFour/OnboardingStepFour';
+import OnboardingStepOne from './components/OnboardingStepOne/OnboardingStepOne';
+import OnboardingStepThree from './components/OnboardingStepThree/OnboardingStepThree';
+import OnboardingStepTwo from './components/OnboardingStepTwo/OnboardingStepTwo';
 import getStyles from './styles';
 
 export default function OnboardingScreen({
@@ -19,30 +20,36 @@ export default function OnboardingScreen({
   const renderStep = () => {
     switch (currentStep) {
       case 1:
-        return <OnboardingStepOne />;
+        return <OnboardingStepOne handleGoToNextStep={handleGoToNextStep} />;
       case 2:
-        return <OnboardingStepTwo />;
+        return <OnboardingStepTwo handleGoToNextStep={handleGoToNextStep} />;
       case 3:
-        return <OnboardingStepThree />;
+        return <OnboardingStepThree handleGoToNextStep={handleGoToNextStep} />;
       case 4:
-        return <OnboardingStepFour />;
+        return (
+          <OnboardingStepFour
+            handleGoToNextStep={handleGoToNextStep}
+            currentStep={currentStep}
+          />
+        );
       default:
         return null;
     }
   };
 
   return (
-    <View style={styles.container}>
-      {/*<OnboardingStepIndicator currentStep={currentStep} totalSteps={totalSteps} />*/}
-      <View style={{ height: 62 }}></View>
-      <View style={styles.centerBlock}>{renderStep()}</View>
+    <SafeAreaView
+      edges={['bottom', 'top']}
+      style={styles.container}
+    >
+      {currentStep > 3 ? (
+        <OnboardingStepIndicator
+          currentStep={currentStep - 3}
+          totalSteps={10}
+        />
+      ) : null}
 
-      <Pressable
-        style={[styles.continueButton]}
-        onPress={handleGoToNextStep}
-      >
-        <AppText style={[styles.continueButtonText]}>Continue</AppText>
-      </Pressable>
-    </View>
+      <View style={styles.wrapper}>{renderStep()}</View>
+    </SafeAreaView>
   );
 }

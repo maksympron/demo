@@ -3,6 +3,7 @@ import { Eye, EyeOff } from 'lucide-react-native';
 import { forwardRef, useState } from 'react';
 import {
   type TextInputProps as BaseTextInputProps,
+  Keyboard,
   TextInput as RNTextInput,
   type TextInput as TextInputType,
   TouchableWithoutFeedback,
